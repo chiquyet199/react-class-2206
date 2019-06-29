@@ -17,6 +17,7 @@ function calculateRank(score) {
   }
   return rank
 }
+
 function onCalculateClick() {
   let scoreElement = document.querySelector('.score')
   let score = Number(scoreElement.value)
@@ -24,9 +25,8 @@ function onCalculateClick() {
     return
   }
   let rank = calculateRank(score)
-  if (rank === 'error') {
-    alert(`"${scoreElement.value}" is not a valid score`)
-  } else {
-    alert(rank)
-  }
+  let erroMessage = `"${scoreElement.value}" is not a valid score`
+  let successMessage = rank
+  let message = rank === 'error' ? erroMessage : successMessage
+  alert(message)
 }
