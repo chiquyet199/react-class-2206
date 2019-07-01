@@ -1,6 +1,6 @@
 function calculateRank(score) {
   let rank
-  let scoreNotValid = score === NaN || score > 10 || score < 0
+  let scoreNotValid = isNaN(score) || score > 10 || score < 0
 
   if (scoreNotValid) {
     return 'error'
