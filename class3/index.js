@@ -1,3 +1,16 @@
+let scoreInput = document.querySelector('.score')
+
+scoreInput.addEventListener('keydown', function(){
+  console.log('onkeydown event fired')
+})
+
+scoreInput.onkeyup = function(event){
+  const KEY_ENTER = 13
+  if(event.keyCode === KEY_ENTER){
+    onCalculateClick()
+  }
+}
+
 function calculateRank(score) {
   let rank
   let scoreNotValid = isNaN(score) || score > 10 || score < 0
@@ -29,4 +42,5 @@ function onCalculateClick() {
   let successMessage = rank
   let message = rank === 'error' ? erroMessage : successMessage
   alert(message)
+  scoreElement.value = ''
 }
