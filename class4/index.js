@@ -67,3 +67,10 @@ showAndroidBtn.addEventListener('click', function() {
 
 Sau khi tạo được 1 thẻ HTML như thế này, thì thêm nó vào list.(thêm làm sao , google luôn)
 */
+
+
+/*
+  BÀI TẬP NÂNG CAO
+  Khi page mới load, tất cả filter button đều phải đang trong trạng thái active(backgound màu xanh)
+  Sau khi 1 button thay đổi trạng thái, thì danh sách sản phẩm phải hiển thị tương ứng
+*/
