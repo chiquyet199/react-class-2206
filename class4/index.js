@@ -26,12 +26,12 @@ function showAll(productEls){
 }
 
 showIphoneBtn.addEventListener('click', function() {
-  let productEls = Array.from(document.querySelectorAll('.product'))
-  showAll(productEls)
+  let productEls = Array.from(document.querySelectorAll('.product')) //1 mảng các element có class là product
+  showAll(productEls) // remove class hide trên tất cả các item trong mảng này
   for (let i = 0; i < productEls.length; i++) {
-    let productEl = productEls[i]
-    if (!isIphone(productEl)) {
-      hideElement(productEl)
+    let productEl = productEls[i] // khai báo 1 biến để giữ giá trị cho phần tử thứ i của mảng các element
+    if (!isIphone(productEl)) { //kiểm tra xem attribute data-type của element này có khác iPhone hay không
+      hideElement(productEl) //Nếu khác, thì thêm class hide cho element đó để (display:none)
     }
   }
 })
