@@ -79,6 +79,9 @@ nav ul li:hover {
 .checkout .content {
   padding: 20px;
 }
+.product.hide {
+  display: none;
+}
 .product {
   border-radius: 3px;
   padding: 10px;
