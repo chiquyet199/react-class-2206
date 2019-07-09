@@ -17,6 +17,17 @@ function isAndroid(element) {
   return result 
 }
 
+function isAndroid(element) {
+  let androidTypes = {
+    samsung: true,
+    xiaomi: true,
+    bphone: true
+  }
+  let type = element.getAttribute('data-type')
+  let result = androidTypes[type] // truy xuất property bằng []
+  return result 
+}
+
 function showAll(productEls){
   let i = 0
   while(i < productEls.length){
