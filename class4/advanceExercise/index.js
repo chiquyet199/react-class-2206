@@ -18,9 +18,15 @@ function bindClickEvent(el) {
 }
 
 function handlePriceFilterChange(e) {
+  if (e.target.value === 'all') {
+    filter.price.min = 0
+    filter.price.max = Number.MAX_SAFE_INTEGER
+    renderFilteredProduct()
+    return
+  }
   const min = Number(e.target.value.split('-')[0])
   const max = Number(e.target.value.split('-')[1])
-  if(isNaN(min) || isNaN(max)) {
+  if (isNaN(min) || isNaN(max)) {
     e.preventDefault()
     return
   }
