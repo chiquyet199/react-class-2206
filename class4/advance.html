@@ -1,0 +1,156 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <div id="root">
+      <div class="page products">
+        <nav>
+          <ul>
+            <li class="nav-home">Home</li>
+            <li class="nav-products">Products</li>
+            <li class="nav-contact">contact</li>
+          </ul>
+          <span class="shopping-cart">Cart (0)</span>
+        </nav>
+        <div
+          style="padding: 20px; display:flex; justify-content:center;align-items: center"
+        >
+          <button data-type="showIphone" class="filterBtn active">Show iPhone</button>
+          <button data-type="showAndroid" class="filterBtn active">Show Android</button>
+          <select id="priceFilter">
+            <option value="all">All</option>
+            <option value="0-500">0 - 500</option>
+            <option value="500-1000">500 - 1000</option>
+            <option value="1000-1500">1000 - 1500</option>
+            <option value="1500-2000">1500 - 2000</option>
+          </select>
+        </div>
+        <div
+          style="padding: 20px; display:flex; justify-content:center"
+        >
+          <form>
+            <label>
+              Name
+              <input type="text" name="phoneName" />
+            </label>
+            <label>
+              Type
+              <input type="text" name="phoneType" />
+            </label>
+            <label>
+              Price
+              <input type="number" name="phonePrice" />
+            </label>
+            <button onclick="addNewItem()">Add</button>
+          </form>
+        </div>
+        <div class="content">
+          <div
+            class="product"
+            data-id="1"
+            data-price="650"
+            data-type="iPhone"
+          >
+            <h3>iPhone6</h3>
+            <span>650</span>
+          </div>
+
+          <div
+            class="product"
+            data-id="2"
+            data-price="700"
+            data-type="iPhone"
+          >
+            <h3>iPhone6 Plus</h3>
+            <span>700</span>
+          </div>
+
+          <div
+            class="product"
+            data-id="3"
+            data-price="750"
+            data-type="iPhone"
+          >
+            <h3>iPhone7</h3>
+            <span>750</span>
+          </div>
+
+          <div
+            class="product"
+            data-id="4"
+            data-price="800"
+            data-type="iPhone"
+          >
+            <h3>iPhone7 Plus</h3>
+            <span>800</span>
+          </div>
+          <div
+            class="product"
+            data-id="5"
+            data-price="200"
+            data-type="samsung"
+          >
+            <h3>Samsung Note5</h3>
+            <span>200</span>
+          </div>
+          <div
+            class="product"
+            data-id="6"
+            data-price="300"
+            data-type="xiaomi"
+          >
+            <h3>Xiaomi Redmi7</h3>
+            <span>300</span>
+          </div>
+          <div
+            class="product"
+            data-id="6"
+            data-price="300"
+            data-type="winphone"
+          >
+            <h3>Lumia 900</h3>
+            <span>300</span>
+          </div>
+          <div
+            class="product"
+            data-id="7"
+            data-price="800"
+            data-type="huaway"
+          >
+            <h3>Huaway P30</h3>
+            <span>800</span>
+          </div>
+          <div
+            class="product"
+            data-id="8"
+            data-price="550"
+            data-type="bphone"
+          >
+            <h3>BPhone 3</h3>
+            <span>550</span>
+          </div>
+          <div
+            class="product"
+            data-id="9"
+            data-price="1800"
+            data-type="iPhone"
+          >
+            <h3>iPhone XS</h3>
+            <span>1800</span>
+          </div>
+          <div
+            class="product"
+            data-id="10"
+            data-price="1200"
+            data-type="samsung"
+          >
+            <h3>SamSung S10</h3>
+            <span>1200</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./advance.js"></script>
+  </body>
+</html>

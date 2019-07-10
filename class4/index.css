@@ -82,6 +82,9 @@ nav ul li:hover {
 .product.hide {
   display: none;
 }
+button.active {
+  background: #36a579;
+}
 .product {
   border-radius: 3px;
   padding: 10px;
