@@ -17,6 +17,17 @@ function isAndroid(element) {
   return result 
 }
 
+function isAndroid(element) {
+  let androidTypes = {
+    samsung: true,
+    xiaomi: true,
+    bphone: true
+  }
+  let type = element.getAttribute('data-type')
+  let result = androidTypes[type] // truy xuất property bằng []
+  return result 
+}
+
 function showAll(productEls){
   let i = 0
   while(i < productEls.length){
@@ -46,3 +57,31 @@ showAndroidBtn.addEventListener('click', function() {
     }
   }
 })
+
+
+
+/*
+//BÀI TẬP VỀ NHÀ
+// UI đã có sẵn cho việc thêm mới 1 sản phẩm vào list product
+// handle sự kiện click button , để thêm mới
+// google cách tạo mới 1 thẻ html, có cấu trúc như sau
+
+<div
+  class="product"
+  data-id="3"
+  data-price="750"
+  data-type="iPhone"
+>
+  <h3>iPhone7</h3>
+  <span>750</span>
+</div>
+
+Sau khi tạo được 1 thẻ HTML như thế này, thì thêm nó vào list.(thêm làm sao , google luôn)
+*/
+
+
+/*
+  BÀI TẬP NÂNG CAO
+  Khi page mới load, tất cả filter button đều phải đang trong trạng thái active(backgound màu xanh)
+  Sau khi 1 button thay đổi trạng thái, thì danh sách sản phẩm phải hiển thị tương ứng
+*/
