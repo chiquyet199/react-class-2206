@@ -116,15 +116,30 @@ const bindEventListeners = function(){
   })
 }
 
-function setState(newState){
+const setState = function(newState){
   applicationState = newState
   render(applicationState)
 }
 
 render(applicationState)
 
-
+//Hide banner after 3s
 setTimeout(function(){
-  applicationState.showBanner = false
-  render(applicationState)
+  setState({...applicationState, showBanner: false})
 },3000)
+
+
+//Add new product after 5s
+setTimeout(function(){
+  const newProduct = {
+    id:5,
+    name: 'Samsung',
+    os: 'android',
+    price: 1000
+  }
+  const newState = {
+    ...applicationState, //Copy all key value from applicationState
+    products: [...applicationState.products, newProduct] // modify applicationState.products, 
+  }
+  setState(newState)
+},5000)
