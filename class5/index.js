@@ -68,22 +68,24 @@ const renderNavbar = function(state){
 
 const renderProducts = function(state){
   return `
-    <div class="content">
-      ${
-        state.products.map(function(product){
-          return `
-            <div
-              class="product"
-              data-id="${product.id}"
-              data-price="${product.price}"
-              data-type="${product.os}"
-            >
-              <h3>${product.name}</h3>
-              <span>${product.price}</span>
-            </div>
-          `
-        }).join('')
-    }
+    <div class="page products">
+      <div class="content">
+        ${
+          state.products.map(function(product){
+            return `
+              <div
+                class="product"
+                data-id="${product.id}"
+                data-price="${product.price}"
+                data-type="${product.os}"
+              >
+                <h3>${product.name}</h3>
+                <span>${product.price}</span>
+              </div>
+            `
+          }).join('')
+      }
+      </div>
     </div>
   `
 }
@@ -91,13 +93,25 @@ const renderProducts = function(state){
 const render = function(state) {
   const rootEl = document.querySelector('#root') // Get root element from  DOM
   rootEl.innerHTML = `
-    <div class="page products">
         ${state.showBanner ? '<h1>THIS IS BANNER . WILL HIDE IN 3 SECONDS</h1>' : ''}
         ${renderNavbar(state)}
-        ${renderProducts(state)}
-      </div>
+        ${renderPageContent(state)}
   `
   bindEventListeners()
+}
+
+const renderPageContent = function(state){
+  if(state.activePage === 'product') return renderProducts(state)
+  if(state.activePage === 'home') return renderHome(state)
+  if(state.activePage === 'contact') return renderContact(state)
+}
+
+const renderHome = function(){
+  return `<h1>HOME</h1>`
+}
+
+const renderContact = function(){
+  return `<h1>Contact</h1>`
 }
 
 const bindEventListeners = function(){
@@ -106,7 +120,10 @@ const bindEventListeners = function(){
   let navContactEl = document.querySelector('.nav-contact')
 
   navHomeEl.addEventListener('click', function(){
-    setState({...applicationState, activePage: 'home'})
+    const newState = {...applicationState, activePage: 'home'}
+    // ...applicationState  ||| copy tat ca key value cua object applicationState
+    // activePage: 'home'   ||| overwrite gia tri cua key activePage trong applicationState 
+    setState(newState)
   })
   navProductEl.addEventListener('click', function(){
     setState({...applicationState, activePage: 'product'})
