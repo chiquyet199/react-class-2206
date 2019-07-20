@@ -46,7 +46,7 @@ let applicationState = {
     },
   ],
 }
-
+let stateHistory = [applicationState]
 const renderNavbar = function(state){
   return `
     <nav>
@@ -66,9 +66,32 @@ const renderNavbar = function(state){
   `
 }
 
+const renderAddForm = function(state){
+  return `
+  <div style="padding: 20px; display:flex; justify-content:center">
+    <form>
+      <label>
+        Name
+        <input type="text" name="phoneName" />
+      </label>
+      <label>
+        Type
+        <input type="text" name="phoneType" />
+      </label>
+      <label>
+        Price
+        <input type="number" name="phonePrice" />
+      </label>
+      <button class="addNew">Add</button>
+    </form>
+  </div>
+  `
+}
+
 const renderProducts = function(state){
   return `
     <div class="page products">
+      ${renderAddForm(state)}
       <div class="content">
         ${
           state.products.map(function(product){
@@ -93,9 +116,8 @@ const renderProducts = function(state){
 const render = function(state) {
   const rootEl = document.querySelector('#root') // Get root element from  DOM
   rootEl.innerHTML = `
-        ${state.showBanner ? '<h1>THIS IS BANNER . WILL HIDE IN 3 SECONDS</h1>' : ''}
-        ${renderNavbar(state)}
-        ${renderPageContent(state)}
+      ${renderNavbar(state)}
+      ${renderPageContent(state)}
   `
   bindEventListeners()
 }
@@ -118,6 +140,28 @@ const bindEventListeners = function(){
   let navHomeEl = document.querySelector('.nav-home')
   let navProductEl = document.querySelector('.nav-products')
   let navContactEl = document.querySelector('.nav-contact')
+  let addBtn = document.querySelector('.addNew')
+
+  addBtn && addBtn.addEventListener('click', function(event){
+    event.preventDefault()//Khong co refresh on submit
+    const nameInput = document.querySelector('input[name="phoneName"]')
+    const typeInput = document.querySelector('input[name="phoneType"]')
+    const priceInput = document.querySelector('input[name="phonePrice"]')
+    const product = {
+      id: new Date().getTime(),//tra ve 1 so la miliseconds tinh tu 1-1-1970
+      name: nameInput.value,//Lay gia tri tu input co name="phoneName"
+      type: typeInput.value,
+      price: priceInput.value,
+    }
+
+    // applicationState.products.push(product)
+    const newProducts = [...applicationState.products, product]
+    const newState = {
+      ...applicationState,
+      products: newProducts
+    }
+    setState(applicationState)
+  })
 
   navHomeEl.addEventListener('click', function(){
     const newState = {...applicationState, activePage: 'home'}
@@ -134,29 +178,11 @@ const bindEventListeners = function(){
 }
 
 const setState = function(newState){
-  applicationState = newState
-  render(applicationState)
+  stateHistory.push(newState)
+  console.clear()
+  console.log(stateHistory)
+
+  render(newState)
 }
 
 render(applicationState)
-
-//Hide banner after 3s
-setTimeout(function(){
-  setState({...applicationState, showBanner: false})
-},3000)
-
-
-//Add new product after 5s
-setTimeout(function(){
-  const newProduct = {
-    id:5,
-    name: 'Samsung',
-    os: 'android',
-    price: 1000
-  }
-  const newState = {
-    ...applicationState, //Copy all key value from applicationState
-    products: [...applicationState.products, newProduct] // modify applicationState.products, 
-  }
-  setState(newState)
-},5000)
