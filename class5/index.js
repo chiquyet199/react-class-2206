@@ -186,3 +186,21 @@ const setState = function(newState){
 }
 
 render(applicationState)
+
+
+
+//Advanced Exercise
+// 1 - Show filter bar on product page
+// 2 - Create object filterProduct in applicationState
+//     {
+//       min: 0,
+//       max: 1000,
+//       os: 'ios'
+//     }
+// 3 - Show products based on filterProduct
+//     applicationState.products.filter(function(product){
+//       return product.price > applicationState.filterProduct.min 
+//             && product.price < applicationState.filterProduct.max
+//             &&  product.os == applicationState.filterProduct.os
+//     }).map(.....render product item)
+// 4 - When filter change, only change filterProducts then rerender.
