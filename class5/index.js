@@ -334,3 +334,14 @@ NOTEs : LUỒNG ĐI CỦA filter
 3 mỗi lần thay đổi filter, mình chỉ cần gọi setState lại thì displayProducts sẽ được tính lại và render ra đúng các sản phẩm như ý
 
 */
+
+
+
+
+// BAI TAP SHOPPING CART
+1 - thêm button add vao san pham
+2 - tạo ra 1 mảng shoppingCart trong state
+3 - khi click button add sẽ push sản phẩm đó vào mảng shoppingCart
+4 - tạo ra menu trang Checkout
+5 - trong trang checkout, lặp qua mảng shoppingCart và hiển thị các sản phẩm trong Cart
+6 - hiển thị số lượng sản phẩm trong cart trên menu
