@@ -313,3 +313,24 @@ render(applicationState)
 //             &&  product.os == applicationState.filterProduct.os
 //     }).map(.....render product item)
 // 4 - When filter change, only change filterProducts then rerender.
+
+
+/*
+NOTEs : LUỒNG ĐI CỦA filter
+1 tạo 1 object filter trong state theo  định dạng
+    {
+      filter: {
+        show: {
+          ios: true,      // true nếu show sản phẩm có os = ios
+          android: false  // true nếu show sản phẩm có os = android
+        },
+        price: {
+          min: 0,         // show sản phẩm có giá lớnn hơn 0
+          max: 100000     // show sản phẩm có giá nhỏ hơn 100000
+        }
+      }
+    }
+2 tạo 1 array tên là displayProducts. Array này sẽ bằng giá trị của products.filter(filterByFilterObject)
+3 mỗi lần thay đổi filter, mình chỉ cần gọi setState lại thì displayProducts sẽ được tính lại và render ra đúng các sản phẩm như ý
+
+*/
