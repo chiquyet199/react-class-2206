@@ -15,39 +15,75 @@ render() //Render html from state
 applicationState.products.push({name:'iPhone', price: 1000})
 */
 
+const sourceProducts = [
+  {
+    id: 1,
+    name: 'iphone1',
+    os: 'ios',
+    price: 500,
+  },
+  {
+    id: 2,
+    name: 'iphone2',
+    os: 'ios',
+    price: 1000,
+  },
+  {
+    id: 3,
+    name: 'iphone10',
+    os: 'ios',
+    price: 1500,
+  },
+  {
+    id: 4,
+    name: 'iphone11',
+    os: 'ios',
+    price: 2500,
+  },
+  {
+    id: 5,
+    name: 'Nokia',
+    os: 'window',
+    price: 200,
+  },
+  {
+    id: 6,
+    name: 'huaway',
+    os: 'android',
+    price: 1200,
+  },
+  {
+    id: 7,
+    name: 'xiaomi',
+    os: 'android',
+    price: 500,
+  },
+  {
+    id: 8,
+    name: 'samsung note 10',
+    os: 'android',
+    price: 1500,
+  },
+]
 
 let applicationState = {
   showBanner: true,
   activePage: 'product',
-  products: [
-    {
-      id: 1,
-      name: 'iphone1',
-      os: 'ios',
-      price: 500,
+  filter: {
+    show: {
+      ios: true,
+      android: true
     },
-    {
-      id: 2,
-      name: 'iphone2',
-      os: 'ios',
-      price: 1000,
-    },
-    {
-      id: 3,
-      name: 'iphone10',
-      os: 'ios',
-      price: 1500,
-    },
-    {
-      id: 4,
-      name: 'iphone11',
-      os: 'ios',
-      price: 2500,
-    },
-  ],
+    price: {
+      min: 0,
+      max: Number.MAX_SAFE_INTEGER
+    }
+  },
+  displayProducts: [],
+  products: sourceProducts,
 }
 let stateHistory = [applicationState]
-const renderNavbar = function(state){
+const renderNavbar = function(state) {
   return `
     <nav>
       <ul>
@@ -66,7 +102,7 @@ const renderNavbar = function(state){
   `
 }
 
-const renderAddForm = function(state){
+const renderAddForm = function(state) {
   return `
   <div style="padding: 20px; display:flex; justify-content:center">
     <form>
@@ -88,13 +124,37 @@ const renderAddForm = function(state){
   `
 }
 
-const renderProducts = function(state){
+const renderFilterBar = function(state) {
+  const {min, max} = state.filter.price
+  const selectedValue = `${min}-${max}`
+  return `
+  <div style="padding: 20px; display:flex; justify-content:center;align-items: center">
+    <button class="filterIos ${state.filter.show.ios ? 'active' : ''}">Show iPhone</button>
+    <button class="filterAndroid ${state.filter.show.android ? 'active' : ''}">Show Android</button>
+    <select id="priceFilter">
+      <option value="all">All</option>
+      <option ${selectedValue === '0-500' ? 'selected' : '' } value="0-500">0 - 500</option>
+      <option ${selectedValue === '500-1000' ? 'selected' : '' } value="500-1000">500 - 1000</option>
+      <option ${selectedValue === '1000-1500' ? 'selected' : '' } value="1000-1500">1000 - 1500</option>
+      <option ${selectedValue === '1500-2000' ? 'selected' : '' } value="1500-2000">1500 - 2000</option>
+    </select>
+  </div>
+  `
+}
+
+const renderProducts = function(state) {
+  let {displayProducts, products, filter} = state
+  displayProducts = products.filter(function(product){
+    const showOs = filter.show[product.os] 
+    return product.price >= filter.price.min && product.price <= filter.price.max && showOs
+  })
   return `
     <div class="page products">
+      ${renderFilterBar(state)}
       ${renderAddForm(state)}
       <div class="content">
-        ${
-          state.products.map(function(product){
+        ${displayProducts
+          .map(function(product) {
             return `
               <div
                 class="product"
@@ -106,8 +166,8 @@ const renderProducts = function(state){
                 <span>${product.price}</span>
               </div>
             `
-          }).join('')
-      }
+          })
+          .join('')}
       </div>
     </div>
   `
@@ -122,62 +182,111 @@ const render = function(state) {
   bindEventListeners()
 }
 
-const renderPageContent = function(state){
-  if(state.activePage === 'product') return renderProducts(state)
-  if(state.activePage === 'home') return renderHome(state)
-  if(state.activePage === 'contact') return renderContact(state)
+const renderPageContent = function(state) {
+  if (state.activePage === 'product') return renderProducts(state)
+  if (state.activePage === 'home') return renderHome(state)
+  if (state.activePage === 'contact') return renderContact(state)
 }
 
-const renderHome = function(){
+const renderHome = function() {
   return `<h1>HOME</h1>`
 }
 
-const renderContact = function(){
+const renderContact = function() {
   return `<h1>Contact</h1>`
 }
 
-const bindEventListeners = function(){
+const bindEventListeners = function() {
   let navHomeEl = document.querySelector('.nav-home')
   let navProductEl = document.querySelector('.nav-products')
   let navContactEl = document.querySelector('.nav-contact')
   let addBtn = document.querySelector('.addNew')
+  let filterIosBtn = document.querySelector('.filterIos')
+  let filterAndroidBtn = document.querySelector('.filterAndroid')
+  let filterPriceOptions = document.querySelector('#priceFilter')
 
-  addBtn && addBtn.addEventListener('click', function(event){
-    event.preventDefault()//Khong co refresh on submit
-    const nameInput = document.querySelector('input[name="phoneName"]')
-    const typeInput = document.querySelector('input[name="phoneType"]')
-    const priceInput = document.querySelector('input[name="phonePrice"]')
-    const product = {
-      id: new Date().getTime(),//tra ve 1 so la miliseconds tinh tu 1-1-1970
-      name: nameInput.value,//Lay gia tri tu input co name="phoneName"
-      type: typeInput.value,
-      price: priceInput.value,
-    }
+  if(filterPriceOptions){
+    filterPriceOptions.addEventListener('change', function(){
+      const dataPrice = filterPriceOptions.value
+      const price = {
+        min: Number(dataPrice.split('-')[0]),
+        max: Number(dataPrice.split('-')[1])
+      }
+      if(dataPrice === 'all'){
+        price.min = 0
+        price.max = Number.MAX_SAFE_INTEGER
+      }
+      const newState = {...applicationState}
+      newState.filter.price = price
+      setState(newState)
+    })
+  }
 
-    // applicationState.products.push(product)
-    const newProducts = [...applicationState.products, product]
-    const newState = {
-      ...applicationState,
-      products: newProducts
-    }
-    setState(newState)
-  })
+  if(filterIosBtn){
+    filterIosBtn.addEventListener('click', function(){
+      const isActive = applicationState.filter.show.ios
+      const newState = {...applicationState}
+  
+      // newState.filter.show.ios = !isActive   
+      newState.filter.show.ios = isActive === true ? false : true
+      setState(newState)
+    })
+  }
 
-  navHomeEl.addEventListener('click', function(){
+  if(filterAndroidBtn){
+    filterAndroidBtn.addEventListener('click', function(){
+      const isActive = applicationState.filter.show.android
+      const newState = {...applicationState}
+  
+      // newState.filter.show.android = !isActive   
+      newState.filter.show.android = isActive === true ? false : true
+      setState(newState)
+    })
+  }
+
+  addBtn &&
+    addBtn.addEventListener('click', function(event) {
+      event.preventDefault() //Khong co refresh on submit
+      const nameInput = document.querySelector(
+        'input[name="phoneName"]'
+      )
+      const typeInput = document.querySelector(
+        'input[name="phoneType"]'
+      )
+      const priceInput = document.querySelector(
+        'input[name="phonePrice"]'
+      )
+      const product = {
+        id: new Date().getTime(), //tra ve 1 so la miliseconds tinh tu 1-1-1970
+        name: nameInput.value, //Lay gia tri tu input co name="phoneName"
+        type: typeInput.value,
+        price: priceInput.value,
+      }
+
+      // applicationState.products.push(product)
+      const newProducts = [...applicationState.products, product]
+      const newState = {
+        ...applicationState,
+        products: newProducts,
+      }
+      setState(newState)
+    })
+
+  navHomeEl.addEventListener('click', function() {
     const newState = {...applicationState, activePage: 'home'}
     // ...applicationState  ||| copy tat ca key value cua object applicationState
-    // activePage: 'home'   ||| overwrite gia tri cua key activePage trong applicationState 
+    // activePage: 'home'   ||| overwrite gia tri cua key activePage trong applicationState
     setState(newState)
   })
-  navProductEl.addEventListener('click', function(){
+  navProductEl.addEventListener('click', function() {
     setState({...applicationState, activePage: 'product'})
   })
-  navContactEl.addEventListener('click', function(){
+  navContactEl.addEventListener('click', function() {
     setState({...applicationState, activePage: 'contact'})
   })
 }
 
-const setState = function(newState){
+const setState = function(newState) {
   stateHistory.push(newState)
   console.clear()
   console.log(stateHistory)
@@ -186,8 +295,6 @@ const setState = function(newState){
 }
 
 render(applicationState)
-
-
 
 //Advanced Exercise
 // 1 - Show filter bar on product page
@@ -199,7 +306,7 @@ render(applicationState)
 //     }
 // 3 - Show products based on filterProduct
 //     applicationState.products.filter(function(product){
-//       return product.price > applicationState.filterProduct.min 
+//       return product.price > applicationState.filterProduct.min
 //             && product.price < applicationState.filterProduct.max
 //             &&  product.os == applicationState.filterProduct.os
 //     }).map(.....render product item)
