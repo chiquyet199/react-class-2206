@@ -126,6 +126,8 @@ const renderAddForm = function(state) {
 
 const renderFilterBar = function(state) {
   const {min, max} = state.filter.price
+  // const min = state.filter.price.min
+  // const max = state.filter.price.max
   const selectedValue = `${min}-${max}`
   return `
   <div style="padding: 20px; display:flex; justify-content:center;align-items: center">
@@ -259,7 +261,7 @@ const bindEventListeners = function() {
       const product = {
         id: new Date().getTime(), //tra ve 1 so la miliseconds tinh tu 1-1-1970
         name: nameInput.value, //Lay gia tri tu input co name="phoneName"
-        type: typeInput.value,
+        os: typeInput.value,
         price: priceInput.value,
       }
 
