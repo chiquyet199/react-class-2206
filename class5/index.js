@@ -160,7 +160,7 @@ const bindEventListeners = function(){
       ...applicationState,
       products: newProducts
     }
-    setState(applicationState)
+    setState(newState)
   })
 
   navHomeEl.addEventListener('click', function(){
@@ -181,7 +181,7 @@ const setState = function(newState){
   stateHistory.push(newState)
   console.clear()
   console.log(stateHistory)
-
+  applicationState = {...newState}
   render(newState)
 }
 
