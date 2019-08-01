@@ -7,7 +7,7 @@ class RedButtonClass extends React.Component {
   render() {
     return (
       <div className="red-button">
-        <button onClick={this.onRedButtonClick}>{this.props.title}</button>
+        <button onClick={this.props.xxx}>{this.props.title}</button>
       </div>
     )
   }
