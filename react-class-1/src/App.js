@@ -28,12 +28,28 @@ class App extends React.Component {
         <Counter/>
         <Counter/>
         <Counter/>
+
+        {/* <RatingStar />
+        <RatingStar initValue={1}/>
+        <RatingStar initValue={5}/> */}
+
+        
       </div>
     )
   }
   
 }
 
+// OOOOO className={`${this.state.star >0 ?'active' : ''}`} onClick = {setState({star:1})}
+// OOOOO className={`${this.state.star >1 ?'active' : ''}`}onClick = {setState({star:2})}
+// OOOOO className={`${this.state.star >2 ?'active' : ''}`}onClick = {setState({star:3})}
+//.star.active{background: yeallow}
+
+// state={
+//   star: this.PaymentResponse.initValue || 0
+// }
+
+// setState({star:3})
 
 
 

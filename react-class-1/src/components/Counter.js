@@ -4,10 +4,12 @@ class Counter extends React.Component{
   state = {
     count: 0
   }
+  
   onButtonClick = () => {
     let currentStateCount = this.state.count
     this.setState({count: currentStateCount + 1})
   }
+
   render(){
     return(
       <div>
