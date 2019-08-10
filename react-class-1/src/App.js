@@ -3,6 +3,7 @@ import RedButtonClass from './components/RedButtonClass'
 import RedButtonFunc from './components/RedButtonFunc'
 import Counter from './components/Counter'
 import RatingStar from './components/RatingStar/RatingStar'
+import ToggleButton from './components/ToggleButton/ToggleButton'
 import {add, PI} from './utils'
 import './App.css'
 
@@ -21,7 +22,11 @@ class App extends React.Component {
   }
 
   sendResultToServer = (rate) => {
-    alert('rated success ' + rate)
+    console.log('rated success ' + rate)
+  }
+
+  onToggleButtonChanged = (isActive) => {
+    console.log(isActive)
   }
 
   render(){
@@ -36,9 +41,8 @@ class App extends React.Component {
         <RatingStar onRated={this.sendResultToServer} initValue={5}/>
         <RatingStar onRated={this.sendResultToServer} initValue={2}/>
         
-        {/* <RatingStar />
-        <RatingStar initValue={1}/>
-        <RatingStar initValue={5}/> */}
+        <ToggleButton onChange={this.onToggleButtonChanged}/>
+        <ToggleButton active onChange={this.onToggleButtonChanged}/>
         
       </div>
     )
