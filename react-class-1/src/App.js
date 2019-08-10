@@ -2,6 +2,7 @@ import React from 'react'
 import RedButtonClass from './components/RedButtonClass'
 import RedButtonFunc from './components/RedButtonFunc'
 import Counter from './components/Counter'
+import RatingStar from './components/RatingStar/RatingStar'
 import {add, PI} from './utils'
 import './App.css'
 
@@ -18,21 +19,27 @@ class App extends React.Component {
   onRedButtonClick = () => {
     alert('click from App')
   }
+
+  sendResultToServer = (rate) => {
+    alert('rated success ' + rate)
+  }
+
   render(){
+    // RatingStar.props.onRated = App.sendResultToServer
+    // App.sendResultToServer nhan vao 1 parameter
+    // RatingStar.props.onRated(1) ===> rate = 1
     return (
       <div>
-        <button onClick={this.changeTitle}>Change title</button>
-        <RedButtonClass xxx={this.onRedButtonClick} title={this.state.title} />
-        <RedButtonFunc title={this.state.title} />
-        <Counter/>
-        <Counter/>
-        <Counter/>
-        <Counter/>
-
+        <RatingStar onRated={this.sendResultToServer}/> 
+        <RatingStar onRated={this.sendResultToServer} initValue={1}/>
+        <RatingStar onRated={this.sendResultToServer} initValue={2}/>
+        <RatingStar onRated={this.sendResultToServer} initValue={5}/>
+        <RatingStar onRated={this.sendResultToServer} initValue={2}/>
+        
         {/* <RatingStar />
         <RatingStar initValue={1}/>
         <RatingStar initValue={5}/> */}
-
+        <IconButton name="home" text="HOME"/>
         
       </div>
     )
@@ -50,7 +57,6 @@ class App extends React.Component {
 // }
 
 // setState({star:3})
-
 
 
 export default App
