@@ -39,7 +39,6 @@ class App extends React.Component {
         {/* <RatingStar />
         <RatingStar initValue={1}/>
         <RatingStar initValue={5}/> */}
-        <IconButton name="home" text="HOME"/>
         
       </div>
     )

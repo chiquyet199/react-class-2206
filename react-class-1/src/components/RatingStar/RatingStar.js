@@ -1,14 +1,10 @@
 import React from 'react'
 import './RatingStar.css'
 
-// props <=> property
 class RatingStar extends React.Component {
   state = {
     rate: this.props.initValue || 3,
   }
-  // this.props.onRated = (rate) => {
-  //   alert('rated success ' + rate)
-  // }
   rate1 = () => {
     this.setState({rate: 1})
     this.props.onRated(1)
