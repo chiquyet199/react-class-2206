@@ -41,13 +41,33 @@ class App extends React.Component {
     this.setState({activePage: page})
   }
 
+  //addToCart là 1 action với mục đích làm thay đổi app state
+  // cho nên function addToCart phải được định nghĩa ở App
+  // vì muốn thay đổi appState phải viết trong component App
+  addToCart = product => {
+    debugger
+    let newCartItem
+    let newShoppingCart
+    const {shoppingCarts} = this.state
+    const productInCartIndex = shoppingCarts.findIndex(item => item.id === product.id)
+    if(productInCartIndex === -1){
+      newCartItem = {...product, quantity: 1}
+      newShoppingCart = [...shoppingCarts, newCartItem]
+    }else{
+      newShoppingCart = [...shoppingCarts]
+      newShoppingCart[productInCartIndex].quantity++
+    }
+    console.log('newShoppingCart',newShoppingCart)
+    this.setState({shoppingCarts: newShoppingCart})
+  }
+
   renderContent = () => {
     const {activePage} = this.state
     switch (activePage) {
       case 'home':
         return <Home />
       case 'products':
-        return <Products />
+        return <Products addToCart={this.addToCart} products={this.state.products} />
       case 'contact':
         return <Contact />
       default:
@@ -59,7 +79,7 @@ class App extends React.Component {
     const {activePage} = this.state
     return (
       <div>
-        <NavBar navigate={this.navigate} activePage={activePage} />
+        <NavBar navigate={this.navigate} activePage={activePage} shoppingCartLength={this.state.shoppingCarts.length} />
         {this.renderContent()}
       </div>
     )

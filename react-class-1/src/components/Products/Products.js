@@ -1,8 +1,17 @@
 import React from 'react'
 
-const Products = () => {
+const Products = props => {
   return (
-    <h1>Products</h1>
+    <div class="page products">
+      <div class="content">
+        {props.products.map(product => (
+          <div class="product">
+            <h3>{product.name}</h3>
+            <span>{product.price}</span>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
 

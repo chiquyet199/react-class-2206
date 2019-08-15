@@ -1,8 +1,18 @@
 import React from 'react'
 
-const Products = () => {
+const Products = props => {
   return (
-    <h1>Products</h1>
+    <div className="page products">
+      <div className="content">
+        {props.products.map(product => (
+          <div key={product.id} className="product">
+            <h3>{product.name}</h3>
+            <span>{product.price}</span>
+            <button onClick={()=>{props.addToCart(product)}}>Add to Cart</button>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
 
