@@ -2,6 +2,7 @@ import React from 'react'
 import Home from './components/Home/Home'
 import Products from './components/Products/Products'
 import Contact from './components/Contact/Contact'
+import Checkout from './components/Checkout/Checkout'
 import NavBar from './components/NavBar/NavBar'
 import './App.css'
 
@@ -45,7 +46,6 @@ class App extends React.Component {
   // cho nên function addToCart phải được định nghĩa ở App
   // vì muốn thay đổi appState phải viết trong component App
   addToCart = product => {
-    debugger
     let newCartItem
     let newShoppingCart
     const {shoppingCarts} = this.state
@@ -57,9 +57,26 @@ class App extends React.Component {
       newShoppingCart = [...shoppingCarts]
       newShoppingCart[productInCartIndex].quantity++
     }
-    console.log('newShoppingCart',newShoppingCart)
     this.setState({shoppingCarts: newShoppingCart})
   }
+
+  changeQuantity = (id, newQuantity) => {
+    const {shoppingCarts} = this.state
+    const index = shoppingCarts.findIndex(item => item.id === id)
+    const newShoppingCarts = [...shoppingCarts]
+    newShoppingCarts[index].quantity = newQuantity
+    this.setState({shoppingCarts: newShoppingCarts})
+  }
+  
+  deleteCartItem = id => {
+    const {shoppingCarts} = this.state
+    const index = shoppingCarts.findIndex(item => item.id === id)
+    const newShoppingCarts = [...shoppingCarts]
+    newShoppingCarts.splice(index,1)
+    this.setState({shoppingCarts: newShoppingCarts})
+  }
+
+  checkout = () => this.setState({shoppingCarts: []})
 
   renderContent = () => {
     const {activePage} = this.state
@@ -70,6 +87,8 @@ class App extends React.Component {
         return <Products addToCart={this.addToCart} products={this.state.products} />
       case 'contact':
         return <Contact />
+      case 'checkout':
+        return <Checkout carts={this.state.shoppingCarts} changeQuantity={this.changeQuantity} deleteCartItem={this.deleteCartItem} checkout={this.checkout}/>
       default:
         return <NotFound navigate={this.navigate} />
     }
@@ -77,9 +96,13 @@ class App extends React.Component {
 
   render() {
     const {activePage} = this.state
+    const shoppingCartLength = this.state.shoppingCarts.reduce((sum, item) => {
+      sum += item.quantity
+      return sum
+    }, 0)
     return (
       <div>
-        <NavBar navigate={this.navigate} activePage={activePage} shoppingCartLength={this.state.shoppingCarts.length} />
+        <NavBar navigate={this.navigate} activePage={activePage} shoppingCartLength={shoppingCartLength} />
         {this.renderContent()}
       </div>
     )

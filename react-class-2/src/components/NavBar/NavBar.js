@@ -11,7 +11,7 @@ function NavBar(props) {
         <li onClick={() => {props.navigate('products')}} className={productsClass}>products</li>
         <li onClick={() => {props.navigate('contact')}} className={contactClass}>contact</li>
       </ul>
-      <span className="shopping-cart">Cart ({props.shoppingCartLength})</span>
+      <span onClick={() => {props.navigate('checkout')}} className="shopping-cart">Cart ({props.shoppingCartLength})</span>
     </nav>
   )
 }
