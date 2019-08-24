@@ -23,7 +23,7 @@ function Checkout(props) {
               <span>{item.price}USD</span>
               <input
                 onChange={e => {
-                  changeQuantity(item.id, e.target.value)
+                  changeQuantity(item.id, +e.target.value )
                 }}
                 className="quantity"
                 type="number"

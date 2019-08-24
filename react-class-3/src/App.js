@@ -5,7 +5,13 @@ import Products from './components/Products/Products'
 import Contact from './components/Contact/Contact'
 import Checkout from './components/Checkout/Checkout'
 import NavBar from './components/NavBar/NavBar'
-import {navigate} from './redux/actions'
+import {
+  navigate,
+  addToCart,
+  checkout,
+  removeCart,
+  changeQuantity,
+} from './redux/actions'
 import './App.css'
 
 class App extends React.Component {
@@ -17,7 +23,7 @@ class App extends React.Component {
       case 'products':
         return (
           <Products
-            addToCart={() => {}}
+            addToCart={this.props.addToCart}
             products={this.props.products}
           />
         )
@@ -27,9 +33,9 @@ class App extends React.Component {
         return (
           <Checkout
             carts={this.props.shoppingCarts}
-            changeQuantity={() => {}}
-            deleteCartItem={this.deleteCartItem}
-            checkout={() => {}}
+            changeQuantity={this.props.changeQuantity}
+            deleteCartItem={this.props.removeCart}
+            checkout={this.props.checkout}
           />
         )
       default:
@@ -81,7 +87,7 @@ const mapStateToProps = appState => {
     //this.props
     shoppingCarts: appState.shoppingCarts,
     activePage: appState.activePage,
-    products: appState.products
+    products: appState.products,
   }
   return AppProps
 }
@@ -93,6 +99,18 @@ const mapActionsToProps = dispatch => {
     navigate: newPage => {
       dispatch(navigate(newPage))
     },
+    addToCart: product => {
+      dispatch(addToCart(product))
+    },
+    checkout: () => {
+      dispatch(checkout())
+    },
+    removeCart: cartId => {
+      dispatch(removeCart(cartId))
+    },
+    changeQuantity: (cartId, newQuantity) => {
+      dispatch(changeQuantity(cartId, newQuantity))
+    },
   }
   return AppProps
 }
@@ -101,8 +119,6 @@ export default connect(
   mapStateToProps,
   mapActionsToProps
 )(App)
-
-
 
 /**
  *  React App 
@@ -129,4 +145,3 @@ export default connect(
       </Products>
     </App> 
  */
-
