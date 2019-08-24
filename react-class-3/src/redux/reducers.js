@@ -7,7 +7,7 @@ import {
 } from './actions'
 
 const initialState = {
-  activePage: 'home',
+  activePage: 'sssss',
   products: [
     {
       id: 1,

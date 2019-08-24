@@ -5,13 +5,7 @@ import Products from './components/Products/Products'
 import Contact from './components/Contact/Contact'
 import Checkout from './components/Checkout/Checkout'
 import NavBar from './components/NavBar/NavBar'
-import {
-  navigate,
-  addToCart,
-  checkout,
-  removeCart,
-  changeQuantity,
-} from './redux/actions'
+import NotFound from './components/NotFound/NotFound'
 import './App.css'
 
 class App extends React.Component {
@@ -21,103 +15,38 @@ class App extends React.Component {
       case 'home':
         return <Home />
       case 'products':
-        return (
-          <Products
-            addToCart={this.props.addToCart}
-            products={this.props.products}
-          />
-        )
+        return <Products />
       case 'contact':
         return <Contact />
       case 'checkout':
-        return (
-          <Checkout
-            carts={this.props.shoppingCarts}
-            changeQuantity={this.props.changeQuantity}
-            deleteCartItem={this.props.removeCart}
-            checkout={this.props.checkout}
-          />
-        )
+        return <Checkout />
       default:
-        return <NotFound navigate={this.navigate} />
+        return <NotFound />
     }
   }
 
   render() {
-    const {activePage} = this.props
-    const shoppingCartLength = this.props.shoppingCarts.reduce(
-      (sum, item) => {
-        sum += item.quantity
-        return sum
-      },
-      0
-    )
     return (
       <div>
-        <NavBar
-          navigate={this.props.navigate}
-          activePage={activePage}
-          shoppingCartLength={shoppingCartLength}
-        />
+        <NavBar />
         {this.renderContent()}
       </div>
     )
   }
 }
 
-function NotFound(props) {
-  return (
-    <div>
-      <h1>PAGE NOT FOUND</h1>
-      <button
-        onClick={() => {
-          props.navigate('home')
-        }}
-      >
-        BACK TO HOME
-      </button>
-    </div>
-  )
-}
-
 // Hàm này sẽ cung cấp application state của redux
 // cho component App thông qua this.props
 const mapStateToProps = appState => {
   const AppProps = {
-    //this.props
-    shoppingCarts: appState.shoppingCarts,
     activePage: appState.activePage,
-    products: appState.products,
-  }
-  return AppProps
-}
-
-// Hàm này sẽ cung cấp các actions trong redux
-// cho component App thông qua this.props
-const mapActionsToProps = dispatch => {
-  const AppProps = {
-    navigate: newPage => {
-      dispatch(navigate(newPage))
-    },
-    addToCart: product => {
-      dispatch(addToCart(product))
-    },
-    checkout: () => {
-      dispatch(checkout())
-    },
-    removeCart: cartId => {
-      dispatch(removeCart(cartId))
-    },
-    changeQuantity: (cartId, newQuantity) => {
-      dispatch(changeQuantity(cartId, newQuantity))
-    },
   }
   return AppProps
 }
 
 export default connect(
   mapStateToProps,
-  mapActionsToProps
+  null
 )(App)
 
 /**

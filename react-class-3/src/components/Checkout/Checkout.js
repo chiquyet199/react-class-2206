@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {removeCart, checkout, changeQuantity} from '../../redux/actions'
 
 function EmptyCartMessage() {
   return <h2>You've buy nothing, go shopping more ^^</h2>
@@ -42,4 +44,26 @@ function Checkout(props) {
   )
 }
 
-export default Checkout
+
+const mapStateToProps = appState => {
+  return {carts: appState.shoppingCarts,}
+}
+
+const mapActionsToProps = dispatch => {
+  return {
+    checkout: () => {
+      dispatch(checkout())
+    },
+    removeCart: cartId => {
+      dispatch(removeCart(cartId))
+    },
+    changeQuantity: (cartId, newQuantity) => {
+      dispatch(changeQuantity(cartId, newQuantity))
+    },
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(Checkout)
