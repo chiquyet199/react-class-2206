@@ -49,3 +49,19 @@ export function setProducts(products){
     products
   }
 }
+
+export function fetchProducts(){
+  axios.get('https://mapi.sendo.vn/mob/product/cat/phu-kien-cong-nghe/phu-kien-may-tinh-laptop/usb/?p=2')
+    .then((res) => {
+      const products = res.data.data.map(item => ({
+        name: item.shop_name,
+        id: item.id,
+        price: item.final_price
+      }))
+      this.props.setProducts(products)
+    })
+  return {
+    type: SETPRODUCTS,
+    products
+  }
+}
