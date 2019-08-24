@@ -1,0 +1,21 @@
+.ToggleButton{
+  width: 80px;
+  height: 40px;
+  border-radius: 30px;
+  background: grey;
+  padding: 2px 5px;
+  display: flex;
+  align-items: center;
+}
+
+.ToggleButton.active{
+  background: green;
+  justify-content: flex-end;
+}
+
+.inner{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: white
+}
