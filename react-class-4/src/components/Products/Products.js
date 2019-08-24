@@ -1,33 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addToCart} from '../../redux/actions'
+import {addToCart, setProducts} from '../../redux/actions'
+import axios from 'axios'
 
 class Products extends React.Component {
-  state={counter: 1}
   componentDidMount(){
-    console.log('Se duoc goi sau khi component duoc render len DOM')
-  }
-  componentDidUpdate(prevProps, prevState, snapshot){
-    console.log('Se duoc goi khi component update xong')
-    console.log('newState', this.state.counter)
-    console.log('oldState', prevState.counter)
-  }
-  componentWillUnmount(){
-    console.log('Se duoc goi khi component chuan bi bi remove khoi DOM')
-  }
-  shouldComponentUpdate(newProps, newState){
-    console.log(this.state.counter)
-    if(newState.counter > 10){
-      return false
-    }
-    return true
+    axios.get('https://mapi.sendo.vn/mob/product/cat/phu-kien-cong-nghe/phu-kien-may-tinh-laptop/usb/?p=2')
+      .then((res) => {
+        const products = res.data.data.map(item => ({
+          name: item.shop_name,
+          id: item.id,
+          price: item.final_price
+        }))
+        this.props.setProducts(products)
+      })
   }
   render(){
     const props = this.props
     return (
       <div className="page products">
-        <h1>Products</h1>
-        <h2>{this.state.counter}</h2>
         <button onClick={()=>{this.setState({counter:110})}}>change</button>
         <div className="content">
           {props.products.map(product => (
@@ -57,6 +48,9 @@ const mapActionsToProps = dispatch => {
   return {
     addToCart: product => {
       dispatch(addToCart(product))
+    },
+    setProducts: products => {
+      dispatch(setProducts(products))
     },
   }
 }

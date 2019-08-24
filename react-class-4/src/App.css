@@ -81,6 +81,8 @@ nav ul li:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto
 }
 .checkout .content {
   padding: 20px;

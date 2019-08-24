@@ -4,6 +4,7 @@ export const ADDTOCART = 'ADDTOCART'
 export const REMOVECART = 'REMOVECART'
 export const CHECKOUT = 'CHECKOUT'
 export const CHANGEQUANTITY = 'CHANGEQUANTITY'
+export const SETPRODUCTS = 'SETPRODUCTS'
 
 export function navigate(newPage){
   return {
@@ -39,5 +40,12 @@ export function addToCart(product){
   return {
     type: ADDTOCART,
     product: product
+  }
+}
+
+export function setProducts(products){
+  return {
+    type: SETPRODUCTS,
+    products
   }
 }

@@ -4,12 +4,17 @@ import {
   CHECKOUT,
   CHANGEQUANTITY,
   REMOVECART,
+  SETPRODUCTS
 } from './actions'
 
 const initialState = {
   activePage: 'sssss',
   products: [],
   shoppingCarts: [],
+}
+
+function setProducts(state, action){
+  return {...state, products: action.products}
 }
 
 function navigate(state, action) {
@@ -71,6 +76,8 @@ export default function appState(state = initialState, action) {
       return removeCart(state, action)
     case CHANGEQUANTITY:
       return changeQuantity(state, action)
+    case SETPRODUCTS:
+      return setProducts(state, action)
     default:
       return state
   }
