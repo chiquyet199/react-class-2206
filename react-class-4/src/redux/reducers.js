@@ -8,32 +8,7 @@ import {
 
 const initialState = {
   activePage: 'sssss',
-  products: [
-    {
-      id: 1,
-      name: 'iphone1',
-      os: 'ios',
-      price: 500,
-    },
-    {
-      id: 2,
-      name: 'iphone2',
-      os: 'ios',
-      price: 1000,
-    },
-    {
-      id: 3,
-      name: 'iphone10',
-      os: 'ios',
-      price: 1500,
-    },
-    {
-      id: 4,
-      name: 'iphone11',
-      os: 'ios',
-      price: 2500,
-    },
-  ],
+  products: [],
   shoppingCarts: [],
 }
 
