@@ -1,7 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {navigate} from '../../redux/actions'
 
 function NavBar(props) {
   const homeClass =
@@ -24,7 +23,7 @@ function NavBar(props) {
         </li>
       </ul>
       <span className="shopping-cart">
-          <Link to="/checkout">Cart ({props.shoppingCartLength})</Link>
+        <Link to="/checkout">Cart ({props.shoppingCartLength})</Link>
       </span>
     </nav>
   )
@@ -41,15 +40,7 @@ const mapStateToProps = appState => {
   return {activePage: appState.activePage, shoppingCartLength}
 }
 
-const mapActionsToProps = dispatch => {
-  return {
-    navigate: page => {
-      dispatch(navigate(page))
-    },
-  }
-}
-
 export default connect(
   mapStateToProps,
-  mapActionsToProps
+  null
 )(NavBar)
