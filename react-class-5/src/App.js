@@ -1,5 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {BrowserRouter, Route} from 'react-router-dom'
 import Home from './components/Home/Home'
 import Products from './components/Products/Products'
@@ -25,19 +24,8 @@ class App extends React.Component {
   }
 }
 
-// Hàm này sẽ cung cấp application state của redux
-// cho component App thông qua this.props
-const mapStateToProps = appState => {
-  const AppProps = {
-    activePage: appState.activePage,
-  }
-  return AppProps
-}
 
-export default connect(
-  mapStateToProps,
-  null
-)(App)
+export default App
 
 /**
  *  React App 

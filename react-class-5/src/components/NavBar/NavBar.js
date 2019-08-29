@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {navigate} from '../../redux/actions'
 
@@ -12,38 +13,18 @@ function NavBar(props) {
   return (
     <nav>
       <ul>
-        <li
-          onClick={() => {
-            props.navigate('home')
-          }}
-          className={homeClass}
-        >
-          home
+        <li className={homeClass}>
+          <Link to="/">home</Link>
         </li>
-        <li
-          onClick={() => {
-            props.navigate('products')
-          }}
-          className={productsClass}
-        >
-          products
+        <li className={productsClass}>
+          <Link to="/products">products</Link>
         </li>
-        <li
-          onClick={() => {
-            props.navigate('contact')
-          }}
-          className={contactClass}
-        >
-          contact
+        <li className={contactClass}>
+          <Link to="/contact">contact</Link>
         </li>
       </ul>
-      <span
-        onClick={() => {
-          props.navigate('checkout')
-        }}
-        className="shopping-cart"
-      >
-        Cart ({props.shoppingCartLength})
+      <span className="shopping-cart">
+          <Link to="/checkout">Cart ({props.shoppingCartLength})</Link>
       </span>
     </nav>
   )
