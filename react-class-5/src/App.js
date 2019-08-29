@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {BrowserRouter, Route} from 'react-router-dom'
 import Home from './components/Home/Home'
 import Products from './components/Products/Products'
 import Contact from './components/Contact/Contact'
@@ -9,28 +10,17 @@ import NotFound from './components/NotFound/NotFound'
 import './App.css'
 
 class App extends React.Component {
-  renderContent = () => {
-    const {activePage} = this.props
-    switch (activePage) {
-      case 'home':
-        return <Home />
-      case 'products':
-        return <Products />
-      case 'contact':
-        return <Contact />
-      case 'checkout':
-        return <Checkout />
-      default:
-        return <NotFound />
-    }
-  }
-
   render() {
     return (
-      <div>
-        <NavBar />
-        {this.renderContent()}
-      </div>
+      <BrowserRouter>
+        <div>
+          <NavBar />
+          <Route path="/" exact component={Home} />
+          <Route path="/products"  component={Products} />
+          <Route path="/contact"  component={Contact} />
+          <Route path="/checkout"  component={Checkout} />
+        </div>
+      </BrowserRouter>
     )
   }
 }
