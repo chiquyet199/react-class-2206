@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Home from './components/Home/Home'
 import Products from './components/Products/Products'
 import Contact from './components/Contact/Contact'
@@ -7,6 +7,10 @@ import Checkout from './components/Checkout/Checkout'
 import NavBar from './components/NavBar/NavBar'
 import NotFound from './components/NotFound/NotFound'
 import './App.css'
+
+const AddProduct = () => {
+  return <h1> This is add products page</h1>
+}
 
 const AdBanner = () => {
   return <h1>THIS IS ADVERTISE</h1>
@@ -19,10 +23,13 @@ class App extends React.Component {
         <div>
           <Route path="/products" component={AdBanner} />
           <NavBar />
-          <Route path="/" exact component={Home} />
-          <Route path="/products" component={Products} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/checkout" component={Checkout} />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/products/add" component={AddProduct} />
+            <Route path="/products" component={Products} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/checkout" component={Checkout} />
+          </Switch>
         </div>
       </BrowserRouter>
     )
