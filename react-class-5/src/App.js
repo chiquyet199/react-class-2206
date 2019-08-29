@@ -8,22 +8,26 @@ import NavBar from './components/NavBar/NavBar'
 import NotFound from './components/NotFound/NotFound'
 import './App.css'
 
+const AdBanner = () => {
+  return <h1>THIS IS ADVERTISE</h1>
+}
+
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <div>
+          <Route path="/products" component={AdBanner} />
           <NavBar />
           <Route path="/" exact component={Home} />
-          <Route path="/products"  component={Products} />
-          <Route path="/contact"  component={Contact} />
-          <Route path="/checkout"  component={Checkout} />
+          <Route path="/products" component={Products} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/checkout" component={Checkout} />
         </div>
       </BrowserRouter>
     )
   }
 }
-
 
 export default App
 
