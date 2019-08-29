@@ -20,3 +20,11 @@ export default store
  * Provider:  Cung cấp Application State cho React app
  * Connect:   Kết nối 1 react component tới redux 
  */
+
+
+/**
+ *            THUNK
+ * ACTION----------------->REDUCER------------------->change STORE
+ *       obj{type:..,data:..}   
+ *            func
+ */

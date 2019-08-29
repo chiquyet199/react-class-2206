@@ -39,8 +39,8 @@ const mapActionsToProps = dispatch => {
     addToCart: product => {
       dispatch(addToCart(product))
     },
-    fetchProducts: products => {
-      dispatch(fetchProducts(products))
+    fetchProducts: () => {
+      dispatch(fetchProducts())
     },
   }
 }
@@ -49,3 +49,4 @@ export default connect(
   mapStateToProps,
   mapActionsToProps
 )(Products)
+
