@@ -26,21 +26,48 @@ const UserLayout = () => {
         <Route path="/users/:userId" component={UserDetail} />
       </Switch>
       {/* <UserFooter/> */}
-    </div>  
+    </div>
   )
 }
-const UserDetail = () => (
-    <h1>Quyet</h1>
-)
+const UserDetailSetting = props => {
+  console.log('userId', props.match.params.userId)
+  return <h1>UserDetailSetting</h1>
+}
+const UserDetailPassword = props => {
+  console.log('userId', props.match.params.userId)
+  return <h1>UserDetailPassword</h1>
+}
+const UserDetail = props => {
+  console.log('.match.path', props.match.path)
+  console.log('.match.url', props.match.url)
+  if (props.match.params.userId !== 'admin') {
+    //......
+  }
+  return (
+    <div>
+      <h1>name:Quyet</h1>
+      <Switch>
+        <Route
+          path={`${props.match.url}/setting`}
+          component={UserDetailSetting}
+        />
+        <Route
+          path={`${props.match.path}/password`}
+          component={UserDetailPassword}
+        />
+      </Switch>
+    </div>
+  )
+}
 const Users = () => {
   return (
-      <ul>
-        <li>Quyet</li>
-        <li>Lam</li>
-        <li>Canh</li>
-        <li>Bao</li>
-        <li>Thach</li>
-      </ul>
+    <ul>
+      <li>Quyet</li>
+      <li>Lam</li>
+      <li>Canh</li>
+      <li>Bao</li>
+      <li>Thach</li>
+    </ul>
   )
 }
 
