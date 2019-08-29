@@ -21,6 +21,9 @@ function NavBar(props) {
         <li className={contactClass}>
           <Link to="/contact">contact</Link>
         </li>
+        <li className={contactClass}>
+          <Link to="/users">users</Link>
+        </li>
       </ul>
       <span className="shopping-cart">
         <Link to="/checkout">Cart ({props.shoppingCartLength})</Link>
