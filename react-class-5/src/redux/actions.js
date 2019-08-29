@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from './store'
 /**
  * store object contain dispatch function and getState function
  * if you want to dispatch an action, call dispatch(action)
@@ -58,7 +57,7 @@ export function setProducts(products) {
 }
 
 export function fetchProducts() {
-  return () => {
+  return (dispatch) => {
     axios
       .get(
         'https://mapi.sendo.vn/mob/product/cat/phu-kien-cong-nghe/phu-kien-may-tinh-laptop/usb/?p=2'
@@ -69,7 +68,7 @@ export function fetchProducts() {
           id: item.id,
           price: item.final_price,
         }))
-        store.dispatch(setProducts(products))
+        dispatch(setProducts(products))
       })
   }
 }
@@ -94,3 +93,6 @@ export function fetchProducts() {
 //     products
 //   }
 // }
+
+
+// store => reducer => action
