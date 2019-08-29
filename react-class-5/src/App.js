@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import Home from './components/Home/Home'
 import Products from './components/Products/Products'
 import Contact from './components/Contact/Contact'
@@ -29,6 +29,8 @@ class App extends React.Component {
             <Route path="/products" component={Products} />
             <Route path="/contact" component={Contact} />
             <Route path="/checkout" component={Checkout} />
+            <Route path="/notfound" component={NotFound} />
+            <Redirect to="/notfound"/>
           </Switch>
         </div>
       </BrowserRouter>
